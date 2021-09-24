@@ -1,0 +1,50 @@
+buildings:
+  academy:
+    defaultHp: 150
+    defaultBuildingTime: 90
+    price: 150
+  farm:
+    defaultHp: 100
+    defaultBuildingTime: 60
+    price: 100
+    food:
+      base: 5
+      perLevel: 5
+  mine:
+    defaultHp: 100
+    defaultBuildingTime: 60
+    price: 100
+    gold:
+      base: 5
+      perLevel: 5
+  townhall:
+    defaultHp: 200
+    defaultBuildingTime: 120
+    price: 200
+    food: 10
+    gold: 10
+
+starterPack:
+  resources:
+    gold: 100
+    food: 50
+  buildings:
+    - townhall
+    - academy
+    - farm
+    - mine
+
+troops:
+  troop:
+    defaultHp: 20
+    defaultAttack: 10
+    defaultDefence: 5
+    price: 25
+    trainingTimeCoeficient: 30
+
+timeZone:
+  timeZoneChangeMinutes: 120
+
+timeValidity:
+  defaultValidityConfirmToken: 15
+

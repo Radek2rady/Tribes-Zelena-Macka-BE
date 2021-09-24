@@ -1,0 +1,96 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'jacoco'
+    id 'checkstyle'
+    id 'org.flywaydb.flyway' version '7.12.0'
+}
+
+group = 'com.greenfoxacademy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+def powermock = '2.0.2'
+
+dependencies {
+    // base deps by Statee
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // validations
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // H2
+    runtimeOnly 'com.h2database:h2:1.4.200'
+    // mySQL
+    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+    implementation 'org.jooq:jooq:3.11.11'
+    //flyway
+    implementation 'org.flywaydb:flyway-core'
+    // other DB stuff
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    // tests
+    implementation 'junit:junit:4.13.1'
+    implementation 'org.junit-pioneer:junit-pioneer:1.4.2'
+    implementation 'uk.org.webcompere:system-stubs-jupiter:1.2.0'
+    testImplementation "org.powermock:powermock-core:${powermock}"
+    testImplementation "org.powermock:powermock-module-junit4:${powermock}"
+    testImplementation "org.powermock:powermock-api-mockito2:${powermock}"
+    // security stuff
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-test'
+    // BCrypt encoder
+    implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.5.0'
+    // JWT token stuff
+    implementation 'com.auth0:java-jwt:3.16.0'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+    // modelMapper
+    implementation 'org.modelmapper:modelmapper:2.4.0'
+    // logging
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.6.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.6.1'
+    // other stuff
+    implementation 'com.google.guava:guava:30.1.1-jre'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    // Jakarta Mail API
+    implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '1.6.7'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
+    // image processing
+    implementation 'org.imgscalr:imgscalr-lib:4.2'
+    implementation 'commons-io:commons-io:2.9.0'
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            limit {
+                minimum = 0.70
+            }
+        }
+    }
+}
